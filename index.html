@@ -4,10 +4,14 @@
 
 <head>
 
-<Title> Testing Game </Title> 
+<Title id="title">Life</Title> 
 
 <script src="Game.js"></script>
-<script>a()</script>
+<script>
+	(function () {
+	    Initialize();      // I will invoke myself
+	})();
+</script>
 <style>
 div#left {
 	background-color:lime;
