@@ -1,6 +1,6 @@
 var Game = {};
-Game.Test = function(a) {
-	window.alert(a);
+Game.Test = function() {
+	window.alert("hOI iM tEMmiE!!11");
 }
 
-Game.Test(Muahahahahaha);
+Game.Test();
