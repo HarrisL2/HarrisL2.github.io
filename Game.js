@@ -1,4 +1,6 @@
 var Game = {};
-Game.Test = function() {
-	window.alert(It works!);
+Game.Test = function(a) {
+	window.alert(a);
 }
+
+Game.Test(Muahahahahaha)
