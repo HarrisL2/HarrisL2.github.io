@@ -1,12 +1,5 @@
-var lifeforce = 0;
-
-function Initialize() {
-	while (true) {
-	document.getElementById("life"}.innerhtml = "Life force:" + lifeforce;
-	}
+function test(a) {
+	window.alert(a);
 }
 
-function a() {
-	lifeforce += 1;
-}
-
+window.onload=test(1)
