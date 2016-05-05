@@ -1,5 +1,7 @@
-function test(a) {
-	window.alert(a);
+var Game = {};
+Game.Test = function() {
+	window.alert(It works!);
 }
 
-window.onload=test(1)
+
+window.onload=
