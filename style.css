@@ -1,0 +1,13 @@
+html {
+    height: 100%;
+}
+
+body {
+    background-color: WhiteSmoke;
+    height: 100%;
+}
+
+.test {
+    height: 100%;   
+    background-color: lightblue;
+}
