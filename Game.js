@@ -50,11 +50,11 @@ l("statement").innerHTML = "You have "+Game.Air+" air and "+Game.Nutrients+"nutr
   GAME LOOP
 ==============================================================*/
 Game.Loop = function() {
-	Game.Draw;
+	Game.Draw();
 	setTimeout(Game.Loop,33);
 }
 
 /*==============================================================
   LAUNCH
 ==============================================================*/
-Game.Launch;
+Game.Launch();
