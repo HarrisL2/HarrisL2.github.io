@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+
+<html lang="en-US">
+
+<head>
+
+<link rel="stylesheet" type="text/css" href="style.css">
+
+<Title id="title">VX Emulator</Title> 
+
+<script src="Game.js"></script>
+
+</head>
+
+<body>
+
+
+	<div>
+		<button id="MakeVX" style="font-size:20px;">Stablize Hydrogen Core</button>
+	</div>
+	<div>
+		<table style="width:70%">
+			<tr class="titles">
+				<td>Material</td>
+				<td>Amount</td>
+			</tr>
+			<tr>
+				<td>VX</td>
+				<td id="VX">0</td>
+			</tr>
+			<tr>
+			</tr>
+		</table>
+	</div>
+	<div>
+		<table cellspacing="0" cellpadding="10" style="text-align: center;">
+			<tr>
+				<td id="H" onclick="openElement(event, 'Group 1','HTab')">
+					<p>H</p>
+					<p>0</p>
+				</td>
+				<td colspan="16"></td>
+				<td id="He" onclick="openElement(event, 'Group 0','HeTab')">He</td>
+			</tr>
+			<tr hidden>
+				<td id="Li" onclick="openElement(event, 'Group 1','LiTab')">Li</td>
+				<td>Be</td>
+				<td colspan="10"></td>
+				<td>B</td>
+				<td>C</td>
+				<td>N</td>
+				<td>O</td>
+				<td>F</td>
+				<td id="Ne" onclick="openElement(event, 'Group 0','NeTab')">Ne</td>
+			</tr>
+			<tr hidden>
+				<td>Na</td>
+				<td>Mg</td>
+				<td colspan="10"></td>
+				<td>Al</td>
+				<td>Si</td>
+				<td>P</td>
+				<td>S</td>
+				<td>Cl</td>
+				<td>Ar</td>
+			</tr>
+			<tr hidden>
+				<td>K</td>
+				<td>Ca</td>
+				<td>Sc</td>
+				<td>Ti</td>
+				<td>V</td>
+				<td>Cr</td>
+				<td>Mn</td>
+				<td>Fe</td>
+				<td>Co</td>
+				<td>Ni</td>
+				<td>Cu</td>
+				<td>Zn</td>
+				<td>Ga</td>
+				<td>Ge</td>
+				<td>As</td>
+				<td>Se</td>
+				<td>Br</td>
+				<td>Kr</td>
+			</tr>
+		</table>
+	</div>
+	<div class="tab">
+		<button class="grouptabbuttons" onclick="openGroup(event, 'Group 1')">Group 1</button>
+		<button class="grouptabbuttons" onclick="openGroup(event, 'Group 0')">Group 0</button>
+	</div>
+	<div id="Group 1" class="groupcontent">
+		<h3>Group 1</h3>
+		<p>Group 1 elements produce VX.</p>
+		<div class="secondarytab">
+			<button class="elementtabbuttons" onclick="openElement(event, 'Group 1','HTab')">Hydrogen</button>
+			<button class="elementtabbuttons" onclick="openElement(event, 'Group 1','LiTab')">Lithium</button>
+		</div>
+		<div id="HTab" class="elementcontent">
+			<p>Hydrogen</p>
+		</div>
+		<div id="LiTab" class="elementcontent">
+			<p>Lithium</p>
+		</div>
+	</div>
+
+	<div id="Group 0" class="groupcontent">
+		<h3>Group 0</h3>
+		<p>Group 0 elements increase manual VX production.</p>
+		<div class="secondarytab">
+			<button class="elementtabbuttons" onclick="openElement(event, 'Group 0','HeTab')">Helium</button>
+			<button class="elementtabbuttons" onclick="openElement(event, 'Group 0','NeTab')">Neon</button>
+		</div>
+		<div id="HeTab" class="elementcontent">
+			<p>Helium</p>
+		</div>
+		<div id="NeTab" class="elementcontent">
+			<p>Neon</p>
+		</div>
+	</div>
+</body>
+
+</html>
