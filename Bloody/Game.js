@@ -87,6 +87,7 @@ Game.Loop = function () {
 			l("hell").style.display = "none";
 			Game.bossID += 1;
 			l("fightDemon").innerHTML = "Fight "+Game.bossNames[Game.bossID];
+			l("bossStats").innerHTML = Game.bossNames[Game.bossID]+" - Health: "+Game.bossHealth[Game.bossID]+", Damage per Second: "+Game.bossDamage[Game.bossID];
 			Game.BloodGainPerSecond *= 3;
 			Game.isFighting = false;
 			Game.Draw();
@@ -125,6 +126,7 @@ Game.DamageUp = function() {
 Game.FightNextBoss = function() {
 	l("currentlyFighting").innerHTML = "You are fighting "+Game.bossNames[Game.bossID]+".";
 	Game.isFighting = true;
+	Game.mana = 0;
 	Game.currBossDamage = Game.bossDamage[Game.bossID];
 	Game.currBossHealth = Game.bossHealth[Game.bossID];
 	l("altar").style.display = "none";
