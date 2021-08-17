@@ -27,9 +27,12 @@ Game.Launch = function()
 	Game.isFighting = false;
 	Game.bossID = 0;
 	Game.bossNames = ["Lesser Demon", "Demon", "Greater Demon"]
-	Game.bossDamage = [1, 10, 100]
-	Game.bossHealth = [200, 5000, 250000]
+	Game.bossDamage = [2, 10, 100]
+	Game.bossHealth = [200, 2000, 20000]
+	Game.currBossDamage = 0;
 	Game.currBossHealth = 0;
+	Game.mana = 0;
+	Game.manaGainPerSecond = 5;
 	/*==============================================================
 	  BUTTON ASSIGNMENT
 	==============================================================*/
@@ -37,6 +40,8 @@ Game.Launch = function()
 	AddEvent(l("dmgup"), "click", Game.DamageUp);
 	AddEvent(l("fightDemon"), "click", Game.FightNextBoss);
 	AddEvent(l("leaveHell"), "click", Game.LeaveHell);
+	AddEvent(l("spellAttack"), "click", Game.Scythe);
+	AddEvent(l("spellDefence"), "click", Game.Shield);
 	Game.Loop();
 
 }
@@ -49,11 +54,14 @@ Game.Draw = function()
 	l("flow").innerHTML = "You create "+Game.BloodGainPerSecond+" Blood per second.";
 	l("costBleed").innerHTML = "It costs "+Game.BleedCost+" Blood to appease Him.";
 	l("damage").innerHTML = "You deal "+Game.DamagePerSecond+" damage to enemies per second.";
-	l("hellDamage").innerHTML = "You are dealing "+Game.DamagePerSecond+" damage to "+Game.bossNames[Game.bossID]+" per second.";
 	l("costDmgup").innerHTML = "It costs "+Game.DamageUpCost+" Blood to increase your damage.";
+	
+	l("hellDamage").innerHTML = "You are dealing "+Game.DamagePerSecond+" damage to "+Game.bossNames[Game.bossID]+" per second.";
 	l("hellBlood").innerHTML = "You have "+Game.Blood+" Blood.";
-	l("bossDamage").innerHTML = Game.bossNames[Game.bossID]+" deals "+Game.bossDamage[Game.bossID]+" damage per second to you.";
+	l("bossDamage").innerHTML = Game.bossNames[Game.bossID]+" deals "+Game.currBossDamage+" damage per second to you.";
 	l("bossHealth").innerHTML = Game.bossNames[Game.bossID]+" has "+Game.currBossHealth+" health remaining.";
+	l("mana").innerHTML = "You have "+Game.mana+" mana."
+	l("manaGain").innerHTML = "You are gaining "+Game.manaGainPerSecond+" mana per second."
 }
 /*==============================================================
   GAME LOOP
@@ -61,28 +69,32 @@ Game.Draw = function()
 Game.Loop = function () {
 	Game.date = new Date();
 	Game.timeRaw = Game.date.getTime();
-	if(!Game.isFighting) {
+	if(!Game.isFighting) { //Altar Gains
 		if (Game.timeRaw - Game.timeLast > 1000) {
 			Game.Blood += Game.BloodGainPerSecond;
 			Game.timeLast = Game.date.getTime();
 			Game.Draw();
 		}
 	} else if (Game.isFighting) {
-		if (Game.Blood <= 0) {
+		if (Game.Blood <= 0) { //If player loses
 			l("altar").style.display = "block";
 			l("hell").style.display = "none";
 			Game.isFighting = false;
+			Game.Draw();
 		} 
-		if (Game.currBossHealth <= 0) {
+		if (Game.currBossHealth <= 0) { //If player wins
 			l("altar").style.display = "block";
 			l("hell").style.display = "none";
 			Game.bossID += 1;
-			l("fightDemon").innerHTML = "Fight "+Game.bossNames[Game.bossID]
+			l("fightDemon").innerHTML = "Fight "+Game.bossNames[Game.bossID];
+			Game.BloodGainPerSecond *= 3;
 			Game.isFighting = false;
+			Game.Draw();
 		}
-		if (Game.timeRaw - Game.timeLast > 1000) {
-			Game.Blood -= Game.bossDamage[Game.bossID];
+		if (Game.timeRaw - Game.timeLast > 1000) { //Running the combat
+			Game.Blood -= Game.currBossDamage;
 			Game.currBossHealth -= Game.DamagePerSecond;
+			Game.mana += Game.manaGainPerSecond;
 			Game.timeLast = Game.date.getTime();
 			Game.Draw();
 		}
@@ -111,17 +123,35 @@ Game.DamageUp = function() {
 }
 
 Game.FightNextBoss = function() {
-	l("altar").style.display = "none";
-	l("hell").style.display = "block";
 	l("currentlyFighting").innerHTML = "You are fighting "+Game.bossNames[Game.bossID]+".";
 	Game.isFighting = true;
+	Game.currBossDamage = Game.bossDamage[Game.bossID];
 	Game.currBossHealth = Game.bossHealth[Game.bossID];
+	l("altar").style.display = "none";
+	l("hell").style.display = "block";
+	Game.Draw();
 }
 Game.LeaveHell = function() {
-	l("altar").style.display = "Block";
-	l("hell").style.display = "none";
-	Game.isFighting = false;
-	Game.currBossHealth = Game.bossHealth[Game.bossID];
+	l("leaveHell").innerHTML = "There is no escape."
+}
+Game.Scythe = function() {
+	if(Game.mana >= 25) {
+		Game.mana -= 25;
+		Game.currBossHealth -= Game.DamagePerSecond * 10
+		Game.Draw();
+	}
+}
+Game.Shield = function() {
+	if(Game.mana >= 50) {
+		Game.mana -= 50;
+		Game.currBossDamage /= 2;
+		Game.Draw();
+		setTimeout(Game.ShieldCleanup, 5000);
+	}
+}
+Game.ShieldCleanup = function() {
+	Game.currBossDamage *= 2;
+	Game.Draw();
 }
 
 /*==============================================================
