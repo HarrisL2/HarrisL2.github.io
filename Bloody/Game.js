@@ -27,8 +27,8 @@ Game.Launch = function()
 	Game.isFighting = false;
 	Game.bossID = 0;
 	Game.bossNames = ["Lesser Demon", "Demon", "Greater Demon"]
-	Game.bossDamage = [2, 10, 100]
-	Game.bossHealth = [200, 2000, 20000]
+	Game.bossDamage = [2, 10, 50]
+	Game.bossHealth = [200, 400, 800]
 	Game.currBossDamage = 0;
 	Game.currBossHealth = 0;
 	Game.mana = 0;
@@ -77,6 +77,7 @@ Game.Loop = function () {
 		}
 	} else if (Game.isFighting) {
 		if (Game.Blood <= 0) { //If player loses
+			Game.Blood = 0;
 			l("altar").style.display = "block";
 			l("hell").style.display = "none";
 			Game.isFighting = false;
@@ -139,7 +140,7 @@ Game.LeaveHell = function() {
 Game.Scythe = function() {
 	if(Game.mana >= 25) {
 		Game.mana -= 25;
-		Game.currBossHealth -= Game.DamagePerSecond * 10
+		Game.currBossHealth -= Game.DamagePerSecond
 		Game.Draw();
 	}
 }
